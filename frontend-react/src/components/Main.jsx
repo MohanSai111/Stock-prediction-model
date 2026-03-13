@@ -16,7 +16,7 @@ const Main = () => {
             Machine Learning (ML) and Deep Learning (DL) to identify non-linear
             patterns that traditional statistical models often miss.{" "}
           </p>
-         <Button text="login" class="btn-outline-info"/>
+         <Button text="Explore now" class="btn-outline-info" url="/dashboard"/>
         </div>
       </div>
 

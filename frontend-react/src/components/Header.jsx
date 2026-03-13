@@ -1,8 +1,19 @@
 import React from 'react'
 import Button from './Button'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../AuthProvider'
 
 const Header = () => {
+  const{isLoggedIn,setIsLoggedIn}=useContext(AuthContext)
+  const navigate= useNavigate();
+
+  const handleLogout=()=>{
+    localStorage.removeItem('accesstoken')
+    localStorage.removeItem('refreshtoken')
+    setIsLoggedIn(false)
+    navigate('/login')
+  }
   return (
    <>
    <nav className='navbar conatainer pt-3 pb-3 align-items-start'>
@@ -10,9 +21,19 @@ const Header = () => {
      <Link className='navbar-brand text-light' to="/">Stock Prediction Portal</Link>
 
      <div>
-        <Button text='login' class="btn-outline-info" url="/login"/>
+      {isLoggedIn?(
+         <>
+          <Button text='Dashboard' class="btn-info" url="/dashboard"/>
+          &nbsp;
+        <button className='btn btn-danger' onClick={handleLogout} >Logout</button>
+         </>
+      ):(
+       <>
+          <Button text='login' class="btn-outline-info" url="/login"/>
         &nbsp;
         <Button text='Register' class="btn-info" url="/register"/>
+       </>
+      )}
      </div>
    </nav>
    </>
